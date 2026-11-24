@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Bakery — Kelola Menu Roti</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient-decor" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="bg-grid"></span>
+  </div>
+
+  <div id="offlineBanner" class="offline-banner" role="status" style="display: none;">
+    Koneksi internet terputus. Perubahan cloud tidak dapat dikirim sampai koneksi kembali aktif.
+  </div>
+
+  <!-- Gerbang Login Admin -->
+  <div id="authGate" class="auth-overlay">
+    <div class="card auth-box">
+      <div class="auth-top">
+        <h2>Login Admin Bakery</h2>
+        <button type="button" id="themeToggleLoginBtn" class="btn btn-outline btn-icon-only" aria-label="Ganti tema" title="Ganti tema"></button>
+      </div>
+      <p class="subtitle" style="margin-bottom: 1rem;">Masuk menggunakan akun admin terdaftar untuk mengelola menu roti semua pelanggan.</p>
+      <form id="loginForm" class="form-stack">
+        <label>Email Admin
+          <input type="email" id="adminEmailInput" class="input-field" placeholder="admin@bakery.com" required />
+        </label>
+        <label>Password Admin
+          <input type="password" id="adminPasswordInput" class="input-field" placeholder="••••••••" required />
+        </label>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Masuk Panel Bakery</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Panel Kontrol Admin -->
+  <div id="adminPanel" style="display: none;">
+    <header class="navbar">
+      <div class="container nav-content">
+        <div class="brand">
+          <span class="live-dot"></span>
+          <h1>Admin Bakery</h1>
+        </div>
+        <div class="nav-actions">
+          <button type="button" id="themeToggleBtn" class="btn btn-outline btn-icon-only" aria-label="Ganti tema" title="Ganti tema"></button>
+          <button id="exportBtn" class="btn btn-outline">Export JSON</button>
+          <label class="btn btn-outline" style="cursor:pointer;">
+            Import JSON <input type="file" id="importInput" accept=".json" hidden />
+          </label>
+          <a href="index.html" class="btn btn-outline">Halaman Menu</a>
+          <button id="logoutBtn" class="btn btn-danger-sm">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container admin-layout">
+      <section class="card">
+        <h3 id="formTitle">Tambah Varian Roti Baru</h3>
+        <form id="productForm" class="form-stack">
+          <input type="hidden" id="prodId" />
+
+          <label>Nama Roti
+            <input type="text" id="prodName" class="input-field" required placeholder="Contoh: Roti Sobek Cokelat Keju" />
+          </label>
+
+          <label>Harga (Rp)
+            <input type="number" id="prodPrice" class="input-field" required min="0" placeholder="18000" />
+          </label>
+
+          <label>Foto Roti (Dari File)
+            <div class="file-upload-box">
+              <input type="file" id="prodImageFile" accept="image/*" class="file-input" />
+              <div id="imagePreviewWrap" class="image-preview-wrap" style="display: none;">
+                <img id="imagePreview" src="" alt="Preview foto roti" class="image-preview" />
+                <button type="button" id="removeImageBtn" class="btn btn-danger-sm">Hapus Foto</button>
+              </div>
+            </div>
+          </label>
+
+          <label>Deskripsi / Varian Isian
+            <textarea id="prodDesc" class="input-field" rows="2" placeholder="Lembut berserat, isian cokelat lumer dan keju gurih..."></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Simpan ke Menu Live</button>
+            <button type="button" id="cancelEditBtn" class="btn btn-outline" style="display:none;">Batal</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>Daftar Roti Live (<span id="totalCount">0</span>)</h3>
+          <button id="resetDefaultBtn" class="btn btn-danger-sm">Kosongkan</button>
+        </div>
+
+        <div id="adminProductList" class="admin-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="sync.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RotiKita Bakery — Katalog Roti &amp; Pastry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Dekorasi Latar & Status Offline -->
+  <div class="ambient-decor" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="bg-grid"></span>
+  </div>
+
+  <div id="offlineBanner" class="offline-banner" role="status" style="display: none;">
+    Koneksi internet terputus. Menampilkan daftar roti tersimpan lokal hingga koneksi kembali aktif.
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="brand">
+        <span class="live-dot" id="syncIndicator"></span>
+        <h1>RotiKita Bakery</h1>
+      </div>
+
+      <div class="nav-actions">
+        <button
+          type="button"
+          id="themeToggleBtn"
+          class="btn btn-outline btn-icon-only"
+          aria-label="Ganti tema"
+          title="Ganti tema"
+        ></button>
+        <a href="admin.html" class="btn btn-outline">Admin Bakery</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Konten Utama -->
+  <main class="container">
+    <!-- Hero & Ringkasan Katalog Roti -->
+    <section class="hero-showcase">
+      <div class="hero-copy">
+        <div class="hero-pill">
+          <span class="pill-pulse"></span>
+          <span>Fresh Baked &bull; Update Stok Real-Time</span>
+        </div>
+        <h2>Nikmati Aneka Roti <span class="text-gradient">Hangat Setiap Hari</span></h2>
+        <p class="subtitle">
+          Pilihan roti lembut, pastry renyah, dan kue spesial dengan nuansa hangat serta pemesanan langsung ke WhatsApp.
+        </p>
+        <div class="hero-highlights">
+          <div class="highlight-chip">
+            <span>Dipanggang Segar</span>
+          </div>
+          <div class="highlight-chip">
+            <span>Varian Rasa Lengkap</span>
+          </div>
+          <div class="highlight-chip">
+            <span>Order Instan WhatsApp</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats-card">
+        <div class="stats-card-top">
+          <span class="stats-badge">Etalase Roti</span>
+          <span class="stats-live-text">Ready</span>
+        </div>
+        <div class="stats-main-number">
+          <strong id="heroProductCount">0</strong>
+          <span>Varian Roti</span>
+        </div>
+        <p class="stats-caption">
+          Daftar roti dan ketersediaan stok tersinkronisasi otomatis saat diperbarui admin.
+        </p>
+        <div class="stats-card-actions">
+          <a href="#katalogSection" class="btn btn-primary" style="flex: 1;">Lihat Menu Roti</a>
+          <button type="button" id="heroCustomAskBtn" class="btn btn-outline">Tanya Admin</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toolbar Pencarian & Mode Tampilan -->
+    <section id="katalogSection" class="catalog-toolbar">
+      <div class="toolbar-info">
+        <h3>Menu Roti &amp; Pastry</h3>
+        <span id="resultCountLabel" class="result-count">Menampilkan 0 varian roti</span>
+      </div>
+
+      <div class="filter-group">
+        <div class="search-wrap">
+          <svg
+            class="search-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Cari nama roti, rasa, atau isian..."
+            class="input-field search-input"
+          />
+          <button
+            type="button"
+            id="clearSearchBtn"
+            class="clear-search-btn"
+            aria-label="Hapus pencarian"
+            style="display: none;"
+          >&times;</button>
+        </div>
+
+        <div class="view-switch" role="group" aria-label="Mode tampilan menu roti">
+          <button
+            type="button"
+            id="gridViewBtn"
+            class="view-btn active"
+            title="Tampilan Kartu"
+            aria-label="Tampilan Kartu"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            </svg>
+          </button>
+          <button
+            type="button"
+            id="listViewBtn"
+            class="view-btn"
+            title="Tampilan Ringkas"
+            aria-label="Tampilan Ringkas"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daftar Roti -->
+    <section id="catalogGrid" class="catalog-grid"></section>
+
+    <!-- Banner Pesanan Khusus / Box Roti -->
+    <section class="cta-banner">
+      <div class="cta-copy">
+        <span class="cta-tag">Pesanan Box &amp; Acara</span>
+        <h3>Butuh snack box roti untuk rapat, arisan, atau hajatan?</h3>
+        <p>Hubungi admin untuk pemesanan jumlah banyak, request varian, atau jadwal pengantaran.</p>
+      </div>
+      <button type="button" id="ctaCustomBtn" class="btn btn-primary">Pesan Box via WhatsApp</button>
+    </section>
+  </main>
+
+  <!-- Modal Detail Roti -->
+  <div
+    id="productDetailModal"
+    class="lightbox-overlay"
+    style="display: none;"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="detailModalTitle"
+  >
+    <div class="detail-modal-card">
+      <button type="button" id="closeDetailModalBtn" class="lightbox-close" aria-label="Tutup detail">&times;</button>
+      <div id="detailModalPhotoWrap" class="detail-photo-wrap" style="display: none;">
+        <img id="detailModalImg" src="" alt="" class="detail-modal-img" />
+      </div>
+      <div class="detail-modal-body">
+        <div class="detail-top-meta">
+          <span id="detailModalBadge" class="item-index">#01</span>
+          <span class="stats-live-text">Tersedia</span>
+        </div>
+        <h3 id="detailModalTitle" class="detail-title"></h3>
+        <p id="detailModalDesc" class="detail-desc"></p>
+        <div class="detail-price-panel">
+          <span class="price-label">Harga Satuan / Box</span>
+          <strong id="detailModalPrice" class="detail-price"></strong>
+        </div>
+        <div class="detail-actions">
+          <button type="button" id="detailOrderBtn" class="btn btn-primary" style="flex: 1;">Pesan Roti via WA</button>
+          <button type="button" id="detailCopyBtn" class="btn btn-outline">Salin Format Pesan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Foto Roti -->
+  <div
+    id="imageLightbox"
+    class="lightbox-overlay"
+    style="display: none;"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Pratinjau Foto Roti"
+  >
+    <div class="lightbox-card">
+      <button type="button" id="closeLightboxBtn" class="lightbox-close" aria-label="Tutup pratinjau">&times;</button>
+      <img id="lightboxImg" src="" alt="" class="lightbox-img" />
+      <div class="lightbox-caption">
+        <strong id="lightboxTitle"></strong>
+        <span id="lightboxPrice"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tombol Panah Kembali ke Atas & Notifikasi -->
+  <button
+    type="button"
+    id="backToTopBtn"
+    class="back-to-top"
+    aria-label="Kembali ke atas"
+    title="Kembali ke atas"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m18 15-6-6-6 6"></path>
+    </svg>
+  </button>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="sync.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
